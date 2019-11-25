@@ -1,15 +1,22 @@
+import api from '../../api/imgur'
+
 const state = {
   images: []
 }
 
 const getters = {
-  allimages: () => state.images
+  allImages: () => state.images
 
 }
 
 const actions = {
-  fetchImages() {
-    
+  async fetchImages({ rootState, commit }) {
+    const { token } = rootState.auth
+    const response = await api.fetchImages(token);
+    commit('setImages', response.data.data)
+  },
+  async uploadImages({commit}, images) {
+    console.log(images)
   }
 }
 
